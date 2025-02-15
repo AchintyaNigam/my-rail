@@ -29,8 +29,9 @@ interface Train {
   }
   
   import React, { useState } from 'react';
-  import { Search, Calendar, MapPin, Filter } from 'lucide-react';
-  import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+  import { Search, Calendar, MapPin } from 'lucide-react';
+  import { Card, CardContent } from '@/components/ui/card';
+  import Link from 'next/link';
   
   // Train Schedule Page Component
   const TrainSchedulePage: React.FC = () => {
@@ -41,14 +42,25 @@ interface Train {
   
     // Sample train data
     const trains: Train[] = [
-      { id: 1, name: 'Express 101', departure: 'New York', destination: 'Boston', time: '08:00', duration: '4h', price: '$50' },
-      { id: 2, name: 'Regional 202', departure: 'Boston', destination: 'Washington', time: '09:30', duration: '6h', price: '$75' },
-    ];
+        { id: 1, name: 'Express 101', departure: 'Vellore', destination: 'Chennai', time: '08:00', duration: '2h', price: '₹50 - ₹200' },
+        { id: 2, name: 'Regional 202', departure: 'Chennai', destination: 'Mumbai', time: '09:30', duration: '48h', price: '₹75 - ₹300' },
+        { id: 3, name: 'Superfast 303', departure: 'Bangalore', destination: 'Hyderabad', time: '10:45', duration: '10h', price: '₹150 - ₹500' },
+        { id: 4, name: 'Intercity 404', departure: 'Delhi', destination: 'Agra', time: '06:15', duration: '3h', price: '₹100 - ₹350' },
+        { id: 5, name: 'Rajdhani 505', departure: 'Mumbai', destination: 'Delhi', time: '17:00', duration: '16h', price: '₹500 - ₹2000' },
+        { id: 6, name: 'Shatabdi 606', departure: 'Pune', destination: 'Goa', time: '12:30', duration: '8h', price: '₹300 - ₹1200' },
+        { id: 7, name: 'Mail Express 707', departure: 'Kolkata', destination: 'Bhubaneswar', time: '20:45', duration: '9h', price: '₹250 - ₹900' },
+        { id: 8, name: 'Jan Shatabdi 808', departure: 'Ahmedabad', destination: 'Jaipur', time: '05:00', duration: '13h', price: '₹200 - ₹800' },
+        { id: 9, name: 'Garib Rath 909', departure: 'Lucknow', destination: 'Patna', time: '22:15', duration: '7h', price: '₹180 - ₹700' },
+        { id: 10, name: 'Duronto 1010', departure: 'Hyderabad', destination: 'Visakhapatnam', time: '14:30', duration: '12h', price: '₹400 - ₹1500' },
+        { id: 11, name: 'Passenger 1111', departure: 'Chandigarh', destination: 'Amritsar', time: '04:45', duration: '5h', price: '₹80 - ₹300' },
+        { id: 12, name: 'Double Decker 1212', departure: 'Bangalore', destination: 'Chennai', time: '19:00', duration: '5h', price: '₹250 - ₹1000' },
+      ];
+      
   
-    const stations: string[] = ['New York', 'Boston', 'Washington', 'Philadelphia', 'Chicago'];
+    const stations: string[] = ['Vellore', 'Chennai', 'Mumbai', 'Bangalore', 'Hyderabad', 'Delhi', 'Agra', 'Lucknow', 'Pune', 'Goa', 'Kolkata', 'Bhubaneshwar', 'Jaipur', 'Patna', 'Vishakhapatnam', 'Amritsar', 'Chandigarh'];
   
     return (
-      <div className="container mx-auto p-4 max-w-6xl">
+      <div className="mx-auto p-4 max-w-6xl flex flex-col">
         {/* Search and Filter Section */}
         <div className="mb-8 space-y-4">
           <div className="relative">
@@ -98,7 +110,7 @@ interface Train {
         </div>
   
         {/* Train List */}
-        <div className="space-y-4">
+        <div className="space-y-4 overflow-scroll">
           {trains.map((train) => (
             <Card key={train.id} className="hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
@@ -113,12 +125,18 @@ interface Train {
                   <div className="text-right">
                     <p className="text-2xl font-bold text-blue-600">{train.price}</p>
                     <p className="text-gray-600">Duration: {train.duration}</p>
+                    <Link 
+                    href={{
+                      pathname: '/booking',
+                      query: { trainData: JSON.stringify(train) }
+                    }}
+                  >
                     <button 
                       className="mt-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-                      onClick={() => window.location.href = `/booking/${train.id}`}
                     >
                       Book Now
                     </button>
+                    </Link>
                   </div>
                 </div>
               </CardContent>
