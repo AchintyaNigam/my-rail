@@ -83,34 +83,46 @@ const BookingPage: React.FC = () => {
     <div className="p-4 flex w-screen h-screen lg:flex-row flex-col overflow-hidden">
       {/* Train Details Summary Card */}
       <div className="lg:w-1/2 lg:p-4">
-        <Card className="mb-6">
+        <Card className="mb-8">
           <CardHeader>
-            <CardTitle>Train Details</CardTitle>
+            <CardTitle className="text-4xl">Train Details</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-blue-600">{train.name}</h2>
+              <h2 className="text-8xl font-bold text-blue-600">{train.name}</h2>
               <div className="flex items-center space-x-2">
-                <span className="font-semibold">{train.departure}</span>
-                <ArrowRight className="text-gray-400" size={20} />
-                <span className="font-semibold">{train.destination}</span>
+                <span className="font-semibold text-4xl">{train.departure}</span>
+                <ArrowRight className="text-gray-400" size={40} />
+                <span className="font-semibold text-4xl">{train.destination}</span>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-gray-600">
+              <div className="grid grid-cols-1 md:grid-cols-1 gap-4 text-gray-600">
+              <hr className="border-gray-300"></hr>
                 <div>
-                  <p className="font-medium">Departure Time</p>
-                  <p>{train.time}</p>
+                  <p className="font-medium text-2xl">Departure Time</p>
+                  <p className="text-2xl">{train.time}</p>
                 </div>
                 <div>
-                  <p className="font-medium">Duration</p>
-                  <p>{train.duration}</p>
+                  <p className="font-medium text-2xl">Duration</p>
+                  <p className="text-2xl">{train.duration}</p>
                 </div>
                 <div>
-                  <p className="font-medium">Base Price</p>
-                  <p>{train.price}</p>
+                  <p className="font-medium text-2xl">Base Price</p>
+                  <p className="text-2xl">{train.price}</p>
                 </div>
               </div>
             </div>
           </CardContent>
+        </Card>
+        <Card className="mb-8">
+            <CardHeader>
+              <CardTitle className="text-4xl">Total Price</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <h2 className="text-8xl font-bold text-blue-600">₹{totalPrice}</h2>
+              </div>
+            </CardContent>
+
         </Card>
       </div>
       <div className="lg:w-1/2 lg:p-4 overflow-scroll">
