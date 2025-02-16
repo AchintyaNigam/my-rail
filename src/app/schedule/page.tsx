@@ -60,7 +60,7 @@ interface Train {
     const stations: string[] = ['Vellore', 'Chennai', 'Mumbai', 'Bangalore', 'Hyderabad', 'Delhi', 'Agra', 'Lucknow', 'Pune', 'Goa', 'Kolkata', 'Bhubaneshwar', 'Jaipur', 'Patna', 'Vishakhapatnam', 'Amritsar', 'Chandigarh'];
   
     return (
-      <div className="mx-auto p-4 max-w-6xl flex flex-col">
+      <div className="mx-auto p-4 max-w-6xl flex flex-col dark:bg-black dark:text-white">
         {/* Search and Filter Section */}
         <div className="mb-8 space-y-4">
           <div className="relative">
