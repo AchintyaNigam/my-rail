@@ -50,16 +50,7 @@ const PaymentPage: React.FC = () => {
             // First try to parse as JSON
             passengers = JSON.parse(decodeURIComponent(passengersParam));
           } catch (e) {
-            // If parsing fails, it might be just a number of passengers
-            const numPassengers = parseInt(passengersParam, 10);
-            if (!isNaN(numPassengers)) {
-              // Create an array with default passenger objects
-              passengers = Array(numPassengers).fill(null).map(() => ({
-                name: fullName,
-                age: "30",
-                gender: "not specified"
-              }));
-            }
+            console.log('Error parsing passengers JSON:', e);
           }
         }
         

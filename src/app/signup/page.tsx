@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Train, ArrowLeft, User, Mail, Lock, Phone } from 'lucide-react';
+import { Train, ArrowLeft, User, Mail, Lock } from 'lucide-react';
 import axios from 'axios';
 import { API_URL } from '../constants';
 

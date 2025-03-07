@@ -10,24 +10,6 @@ interface Train {
   price: string;
 }
 
-interface Passenger {
-  name: string;
-  age: string;
-  gender: string;
-}
-
-interface FormData {
-  coachType: string;
-  seats: number;
-  passengers: Passenger[];
-}
-
-interface CoachType {
-  id: string;
-  name: string;
-  price: number;
-}
-
 import React, { useState, useMemo } from 'react';
 import { Search, Calendar, MapPin } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
