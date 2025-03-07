@@ -29,10 +29,11 @@ interface CoachType {
 }
 
 import React, { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
 const BookingPage: React.FC = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const [train, setTrain] = useState<Train | null>(null);
   const [formData, setFormData] = useState<FormData>({
@@ -74,13 +75,50 @@ const BookingPage: React.FC = () => {
     return <div className="container mx-auto p-4">Loading...</div>;
   }
 
+  const handleProceedToPayment = () => {
+    // Validate form data
+    if (!formData.coachType) {
+      alert("Please select a coach type");
+      return;
+    }
+    
+    // Check if all passengers have required information
+    const isPassengersValid = formData.passengers.every(
+      p => p.name && p.age && p.gender
+    );
+    
+    if (!isPassengersValid) {
+      alert("Please fill in all passenger details");
+      return;
+    }
+    
+    // Create URL parameters
+    const queryParams = new URLSearchParams();
+    
+    // Add train details
+    queryParams.append('train_name', train.name);
+    queryParams.append('price', totalPrice.toString());
+    queryParams.append('coach', formData.coachType);
+    
+    // Add passenger details
+    queryParams.append('passengers', JSON.stringify(formData.passengers.length));
+    
+    // Add fullName parameter (combining all passenger names)
+    const fullName = formData.passengers.map(p => p.name).join(', ');
+    queryParams.append('fullName', fullName);
+    
+    // Navigate to payment page with parameters
+    router.push(`/payment?${queryParams.toString()}`);
+  };
+
   const basePrice = parseInt(train.price.replace("₹", ""));
   const coachPrice =
     coachTypes.find((c) => c.id === formData.coachType)?.price || 0;
   const totalPrice = (basePrice + coachPrice) * formData.seats;
 
   return (
-    <div className="p-4 flex w-screen h-screen lg:flex-row flex-col overflow-hidden">
+    <div className="container mx-auto p-4 w-screen h-screen">
+    <div className="p-4 flex lg:flex-row flex-col overflow-hidden">
       {/* Train Details Summary Card */}
       <div className="lg:w-1/2 lg:p-4">
         <Card className="mb-8">
@@ -249,7 +287,7 @@ const BookingPage: React.FC = () => {
             <button
               className="w-full py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-semibold"
               onClick={() =>
-                alert(`Proceeding to payment for total amount: ₹${totalPrice}`)
+                handleProceedToPayment()
               }
             >
               Proceed to Payment
@@ -257,6 +295,12 @@ const BookingPage: React.FC = () => {
           </CardContent>
         </Card>
       </div>
+    </div>
+        <footer className="py-6 px-4 mt-auto">
+        <div className="max-w-7xl mx-auto text-center text-gray-500 text-sm">
+          <p>&copy; {new Date().getFullYear()} Achintya Nigam. All rights reserved.</p>
+        </div>
+        </footer>
     </div>
   );
 };
